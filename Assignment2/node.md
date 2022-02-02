@@ -8,7 +8,7 @@
     \overrightarrow{a} \times \overrightarrow{b} = (x_{0}y_{1}-x_{1}y_{0})
     $$
 
-    当 $\overrightarrow{ab}$ x $\overrightarrow{pa}$, $\overrightarrow{bc}$ x $\overrightarrow{pb}$, $\overrightarrow{ca}$ x $\overrightarrow{pc}$ 符号相同时,点在三角形内部。
+    当 $\overrightarrow{ab}$ $\times$ $\overrightarrow{pa}$, $\overrightarrow{bc}$ $\times$ $\overrightarrow{pb}$, $\overrightarrow{ca}$ $\times$ $\overrightarrow{pc}$ 符号相同时,点在三角形内部。
 
 
   - 执行三角形栅格化
@@ -22,3 +22,10 @@
   - SSAA为将当前分辨率成倍提高, 然后再将图像缩小到显示屏上。
   - 对于作业2来说：
     - 通过创建frame_buf_SSAA和depth_buf_SSAA(其容量为frame_buf和depth_buf的倍数), 将屏幕像素分成n次方个。分别计算每个小像素的颜色值,并求其均值作为原像素的值。
+
+# MSAA
+  - MSAA为在光栅化阶段，判断一个三角形是否被像素覆盖的时候会计算多个覆盖样本（Coverage sample），但是在pixel shader着色阶段计算像素颜色的时候每个像素还是只计算一次。
+  - 通过创建depth_buf_MASS,判断有多少个采样点在像素内。若m个采样点中有n个在像素内，则该像素颜色为:
+  $$
+  color_{pixel}=\frac{color_{triangle} \times n}{m}+\frac{color_{old\_pixel}\times(m-n)}{m}
+  $$
