@@ -3,8 +3,7 @@
 #include <opencv2/opencv.hpp>
 
 std::vector<cv::Point2f> control_points;
-std::vector<std::vector<int>> move0 = { {0,0}, {0,1},{0,-1},{1,0},{-1,0} };
-std::vector<std::vector<int>> move1 = { {1,1},{-1,1},{1,-1},{-1,-1} };
+std::vector<std::vector<int>> move = { {0,0}, {0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
 
 
 void mouse_handler(int event, int x, int y, int flags, void *userdata) 
@@ -60,18 +59,16 @@ void anti_aliasing_bezier(const std::vector<cv::Point2f>& control_points, cv::Ma
         auto point = recursive_bezier(control_points, t);
 
         // ·´×ßÑù
-        for (auto m : move0) {
+        for (auto m : move) {
             cv::Point2i draw_point(point.x + m[0], point.y + m[1]);
             float d_x = abs(point.x - draw_point.x), d_y = abs(point.y - draw_point.y);
-            int color = std::max(0.0, (1 - sqrt(d_x * d_x + d_y * d_y) / 1.0)) * 255;
-            auto point_color = window.at<cv::Vec3b>(draw_point.y, draw_point.x);
-            int draw_color = std::min(color + (int)point_color[2], 255);
-            window.at<cv::Vec3b>(draw_point.y, draw_point.x)[2] = draw_color;
-        }
-        for (auto m : move1) {
-            cv::Point2i draw_point(point.x + m[0], point.y + m[1]);
-            float d_x = abs(point.x - draw_point.x), d_y = abs(point.y - draw_point.y);
-            int color = std::max(0.0f, (1 - sqrt((d_x * d_x + d_y * d_y) / 2))) * 255;
+            
+            float temp = 1.0f - sqrt(d_x * d_x + d_y * d_y);
+            int a=0;
+            if (temp < 0) {
+                int temp;
+            }
+            int color = std::max(0.0f, (1.0f - sqrt(d_x * d_x + d_y * d_y))) * 255;
             auto point_color = window.at<cv::Vec3b>(draw_point.y, draw_point.x);
             int draw_color = std::min(color + (int)point_color[2], 255);
             window.at<cv::Vec3b>(draw_point.y, draw_point.x)[2] = draw_color;
