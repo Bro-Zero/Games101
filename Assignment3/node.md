@@ -1,5 +1,5 @@
 - normal.png:
-  ![normal](normal.png)
+  ![normal](images/normal.png)
 
 - blinn-phong模型：
   - 求出光的方向和视角方向和衰减因子r
@@ -16,7 +16,7 @@
   L_{s}=k_{s}\left(I/r^{2}\right)\max(0, \pmb{n}\cdot\pmb{h})^{p}
   $$
   - 结果:
-    ![](phong.png)
+    ![](images/phong.png)
 - Texture Shading Fragment
 Shader
   - 取纹理时要限定UV坐标,即在`Vector3f getColor(float u, float v)`函数中添加
@@ -27,10 +27,10 @@ Shader
     if (v > 1) v = 1;
     ```
   - 结果:
-    ![](texture.png)
+    ![texture](images/texture.png)
 - bump
   - 结果:
-    ![](bump.png)
+    ![bump](images/bump.png)
 - displacement
   - 结果:
-    ![](displacement.png)
+    ![displacement](images/displacement.png)
